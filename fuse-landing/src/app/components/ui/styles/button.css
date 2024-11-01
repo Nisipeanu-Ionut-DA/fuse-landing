@@ -1,0 +1,22 @@
+/* CustomButton.css */
+.custom-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #a07eff; /* Initial solid color */
+    border-radius: 9999px; /* Full rounded */
+    transition: background 0.5s ease, transform 0.3s ease; /* Shorthand transition */
+}
+
+.custom-button:hover {
+    background: linear-gradient(to right, #a07eff, #d8caff); /* Transition to gradient */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+.custom-button .button-label {
+    position: relative;
+    z-index: 1; /* Ensure label is above the background */
+    color: #fff;
+}

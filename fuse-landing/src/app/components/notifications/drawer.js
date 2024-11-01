@@ -5,34 +5,23 @@ import NotificationCard from "./card";
 import { MdMarkEmailRead, MdRuleFolder } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tooltip } from "@mui/material";
+import { useNotifications } from "@/app/contexts/notificationContext";
 
-const Drawer = ({ open, setOpen, side = "right", notifications, setNotifications }) => {
+const Drawer = ({ open, setOpen, side = "right" }) => {
+  const {
+    notifications,
+    markAllAsRead,
+    markAsRead,
+  } = useNotifications();
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [localNotifications, setLocalNotifications] = useState(notifications);
   const [showReadNotifications, setShowReadNotifications] = useState(false);
-
-  useEffect(() => {
-    setLocalNotifications(notifications);
-  }, [notifications]);
-
-  const markAllAsRead = useCallback(() => {
-    const updatedNotifications = localNotifications.map((notification) => ({
-      ...notification,
-      isRead: true,
-    }));
-    setLocalNotifications(updatedNotifications);
-    setNotifications(updatedNotifications);
-  }, [localNotifications, setNotifications]);
 
   const handleRemoveNotification = useCallback(
     (id) => {
-      const updatedNotifications = localNotifications.map((notification) =>
-        notification.id === id ? { ...notification, isRead: true } : notification
-      );
-      setLocalNotifications(updatedNotifications);
-      setNotifications(updatedNotifications);
+      markAsRead(id);
     },
-    [localNotifications, setNotifications]
+    [markAsRead]
   );
 
   const toggleReadNotifications = useCallback(() => {
@@ -40,14 +29,14 @@ const Drawer = ({ open, setOpen, side = "right", notifications, setNotifications
   }, []);
 
   const filteredNotifications = useMemo(() => {
-    let filteredNotifications = localNotifications;
+    let filteredNotifications = notifications;
 
     if (searchQuery) {
       filteredNotifications = filteredNotifications.filter(
         (n) =>
           n.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          n.senderName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          n.category.toLowerCase().includes(searchQuery.toLowerCase())
+          (n.senderName && n.senderName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+          (n.category && n.category.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     }
 
@@ -56,7 +45,7 @@ const Drawer = ({ open, setOpen, side = "right", notifications, setNotifications
     }
 
     return filteredNotifications;
-  }, [localNotifications, searchQuery, showReadNotifications]);
+  }, [notifications, searchQuery, showReadNotifications]);
 
   // Framer Motion variants
   const backdropVariants = {

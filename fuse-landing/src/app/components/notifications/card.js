@@ -29,13 +29,15 @@ const NotificationCard = ({ notification, onRemove }) => {
   };
 
   return (
-    <div className=" min-h-[85px] px-6 py-[21px] bg-[#f2eeff]/80 rounded-xl flex flex-col justify-center items-start gap-3 mb-4">
+    <div className="min-h-[85px] px-6 py-[21px] bg-[#f2eeff]/80 rounded-xl flex flex-col justify-center items-start gap-3 mb-4">
       <div className="flex w-full items-center gap-5">
         <div className="flex items-center gap-4">
-          <div className="w-[35px] h-[35px] flex items-center justify-center">
-            <div className=" bg-[#fffefe] rounded-full border-2 border-[#7674c2] flex items-center justify-center">
-              <img className="w-10 h-10" src="/images/logosmall.png" alt="icon" />
-            </div>
+          <div className="w-[40px] h-[40px] rounded-full overflow-hidden border-2 border-[#7674c2] flex-shrink-0 bg-[#fffefe] flex items-center justify-center">
+            <img
+              className="w-full h-full object-cover"
+              src="/images/profile.png"
+              alt="profile icon"
+            />
           </div>
           <div className="flex flex-col items-start gap-2">
             <div className="text-[#6260ae] text-base font-normal">
