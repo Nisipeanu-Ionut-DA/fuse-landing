@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import NotificationComponent from "../notifications";
 const Header = () => {
     return (
         <div className="flex justify-between items-center py-4">
@@ -10,9 +11,7 @@ const Header = () => {
             
             {/* Right part for Button */}
             <div className="flex items-center">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Button
-                </button>
+            <NotificationComponent />
             </div>
         </div>
     );
